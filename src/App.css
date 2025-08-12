@@ -1,0 +1,707 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes floatAnimation {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+  100% { opacity: 0.4; }
+}
+
+.App {
+  text-align: center;
+  background: linear-gradient(45deg, #000033, #000066, #000088, #000066, #000033);
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'Orbitron', 'Arial', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.App::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><filter id="glow"><feGaussianBlur stdDeviation="3.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g filter="url(#glow)"><circle cx="10%" cy="20%" r="2" fill="white" opacity="0.8"/><circle cx="15%" cy="30%" r="1" fill="white" opacity="0.6"/><circle cx="20%" cy="10%" r="1.5" fill="white" opacity="0.7"/><circle cx="30%" cy="40%" r="1" fill="white" opacity="0.5"/><circle cx="40%" cy="15%" r="2" fill="white" opacity="0.8"/><circle cx="50%" cy="25%" r="1" fill="white" opacity="0.6"/><circle cx="60%" cy="35%" r="1.5" fill="white" opacity="0.7"/><circle cx="70%" cy="5%" r="1" fill="white" opacity="0.5"/><circle cx="80%" cy="45%" r="2" fill="white" opacity="0.8"/><circle cx="90%" cy="15%" r="1" fill="white" opacity="0.6"/></g></svg>') no-repeat center center;
+  background-size: cover;
+  animation: twinkle 5s infinite alternate;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+/* 添加流星效果 */
+.App::after {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 200px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, white, transparent);
+  transform: rotate(45deg);
+  animation: meteor 8s linear infinite;
+  z-index: -1;
+}
+
+@keyframes meteor {
+  0% {
+    top: -100px;
+    left: -100px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  20% {
+    top: 100%;
+    left: 100%;
+    opacity: 0;
+  }
+  100% {
+    top: 100%;
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+  letter-spacing: 2px;
+  animation: floatAnimation 4s ease-in-out infinite;
+  background: linear-gradient(to right, #ffffff, #66ccff, #ffffff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.7), transparent);
+}
+
+p {
+  font-size: 1.1em;
+  margin: 10px 0;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  p {
+    font-size: 1em;
+    margin: 8px 0;
+  }
+}
+
+.game-info {
+  background: rgba(0, 0, 51, 0.5);
+  padding: 15px 30px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 255, 0.3);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
+  100% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+}
+
+@keyframes buttonFlash {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.3); }
+  100% { filter: brightness(1); }
+}
+
+/* 分数板样式 */
+.score-board {
+  display: flex;
+  justify-content: space-around;
+  background: rgba(0, 0, 51, 0.6);
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 255, 0.3);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.score-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.score-label {
+  font-size: 0.9em;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.score-value {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.score-value.high-score {
+  color: #ffdd44;
+  text-shadow: 0 0 10px rgba(255, 221, 68, 0.7);
+}
+
+.score-value.streak {
+  color: #44ff44;
+  text-shadow: 0 0 10px rgba(68, 255, 68, 0.7);
+}
+
+/* 难度选择器样式 */
+.difficulty-selector {
+  margin-bottom: 25px;
+  padding: 20px;
+  background: rgba(0, 0, 51, 0.3);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.difficulty-selector h3 {
+  margin-bottom: 20px;
+  color: #66ccff;
+  text-shadow: 0 0 15px rgba(102, 204, 255, 0.7);
+  font-size: 1.3em;
+  text-align: center;
+  position: relative;
+}
+
+.difficulty-selector h3::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #66ccff, transparent);
+  border-radius: 1px;
+}
+
+.difficulty-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.difficulty-btn {
+  padding: 12px 24px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 25px;
+  background: linear-gradient(135deg, rgba(0, 0, 51, 0.6), rgba(0, 0, 102, 0.4));
+  color: white;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-family: 'Orbitron', Arial, sans-serif;
+  font-size: 1em;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  position: relative;
+  overflow: hidden;
+  min-width: 80px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.difficulty-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.difficulty-btn:hover {
+  border-color: rgba(255, 255, 255, 0.8);
+  background: linear-gradient(135deg, rgba(0, 0, 102, 0.8), rgba(0, 0, 153, 0.6));
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(102, 204, 255, 0.4);
+}
+
+.difficulty-btn:hover::before {
+  left: 100%;
+}
+
+.difficulty-btn.selected {
+  border-color: #66ccff;
+  background: linear-gradient(135deg, rgba(102, 204, 255, 0.3), rgba(77, 77, 255, 0.2));
+  box-shadow: 0 0 25px rgba(102, 204, 255, 0.6), inset 0 0 20px rgba(102, 204, 255, 0.1);
+  transform: scale(1.1);
+  animation: selectedPulse 2s infinite;
+}
+
+@keyframes selectedPulse {
+  0%, 100% {
+    box-shadow: 0 0 25px rgba(102, 204, 255, 0.6), inset 0 0 20px rgba(102, 204, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(102, 204, 255, 0.8), inset 0 0 25px rgba(102, 204, 255, 0.2);
+  }
+}
+
+/* 难度特定颜色 */
+.difficulty-btn[data-difficulty="normal"] {
+  border-color: rgba(76, 175, 80, 0.5);
+}
+
+.difficulty-btn[data-difficulty="normal"]:hover,
+.difficulty-btn[data-difficulty="normal"].selected {
+  border-color: #4CAF50;
+  box-shadow: 0 0 25px rgba(76, 175, 80, 0.6);
+}
+
+.difficulty-btn[data-difficulty="hard"] {
+  border-color: rgba(255, 152, 0, 0.5);
+}
+
+.difficulty-btn[data-difficulty="hard"]:hover,
+.difficulty-btn[data-difficulty="hard"].selected {
+  border-color: #FF9800;
+  box-shadow: 0 0 25px rgba(255, 152, 0, 0.6);
+}
+
+.difficulty-btn[data-difficulty="expert"] {
+  border-color: rgba(244, 67, 54, 0.5);
+}
+
+.difficulty-btn[data-difficulty="expert"]:hover,
+.difficulty-btn[data-difficulty="expert"].selected {
+  border-color: #F44336;
+  box-shadow: 0 0 25px rgba(244, 67, 54, 0.6);
+}
+
+.difficulty-btn[data-difficulty="insane"] {
+  border-color: rgba(156, 39, 176, 0.5);
+}
+
+.difficulty-btn[data-difficulty="insane"]:hover,
+.difficulty-btn[data-difficulty="insane"].selected {
+  border-color: #9C27B0;
+  box-shadow: 0 0 25px rgba(156, 39, 176, 0.6);
+}
+
+/* 控制按钮样式 */
+.control-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.start-btn, .pause-btn, .reset-btn {
+  padding: 12px 25px;
+  border-radius: 25px;
+  border: none;
+  font-size: 1.1em;
+  font-weight: bold;
+  font-family: 'Orbitron', Arial, sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.start-btn {
+  background: linear-gradient(45deg, #4d4dff, #9999ff);
+  color: white;
+  box-shadow: 0 0 20px rgba(77, 77, 255, 0.7);
+}
+
+.start-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 25px rgba(77, 77, 255, 0.8);
+}
+
+.pause-btn {
+  background: linear-gradient(45deg, #ff9933, #ffcc66);
+  color: white;
+  box-shadow: 0 0 20px rgba(255, 153, 51, 0.7);
+}
+
+.pause-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 25px rgba(255, 153, 51, 0.8);
+}
+
+.reset-btn {
+  background: linear-gradient(45deg, #ff4d4d, #ff9999);
+  color: white;
+  box-shadow: 0 0 20px rgba(255, 77, 77, 0.7);
+}
+
+.reset-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 25px rgba(255, 77, 77, 0.8);
+}
+
+/* 进度指示器样式 */
+.progress-indicator {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #66ccff, #4d4dff);
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.progress-text {
+  font-size: 0.9em;
+  color: #66ccff;
+  min-width: 40px;
+  text-align: center;
+}
+
+/* 庆祝动画样式 */
+.celebration {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2em;
+  color: #ffdd44;
+  text-shadow: 0 0 20px rgba(255, 221, 68, 0.8);
+  z-index: 1000;
+  animation: celebrationBounce 2s ease-in-out;
+}
+
+@keyframes celebrationBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  40% {
+    transform: translate(-50%, -50%) translateY(-20px);
+  }
+  60% {
+    transform: translate(-50%, -50%) translateY(-10px);
+  }
+}
+
+/* 游戏按钮样式更新 */
+button.game-button {
+  border: none;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  animation: pulse 3s infinite;
+}
+
+@media (max-width: 768px) {
+  button.game-button {
+    width: 100px;
+    height: 100px;
+    margin: 8px;
+  }
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+}
+
+button:hover::before {
+  opacity: 0.8;
+}
+
+button:active {
+  transform: scale(0.9);
+}
+
+button.game-button:disabled,
+button.game-button.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  animation: none;
+  transform: none !important;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+button.flash {
+  animation: buttonFlash 0.5s;
+}
+
+button.red {
+  background: radial-gradient(circle, #ff3333, #990000);
+}
+
+button.blue {
+  background: radial-gradient(circle, #3333ff, #000099);
+}
+
+button.green {
+  background: radial-gradient(circle, #33ff33, #009900);
+}
+
+button.yellow {
+  background: radial-gradient(circle, #ffff33, #999900);
+}
+
+/* 添加游戏容器样式 */
+.game-container {
+  position: relative;
+  z-index: 1;
+  width: 90%;
+  max-width: 800px;
+  padding: 30px;
+  border-radius: 20px;
+  background: rgba(0, 0, 51, 0.3);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 30px rgba(0, 0, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 添加按钮按下时的发光效果 */
+button.red:active {
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+}
+
+button.blue:active {
+  box-shadow: 0 0 30px rgba(0, 0, 255, 0.8);
+}
+
+button.green:active {
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.8);
+}
+
+button.yellow:active {
+  box-shadow: 0 0 30px rgba(255, 255, 0, 0.8);
+}
+
+/* 添加按钮闪烁效果 */
+button.red.flash {
+  animation: redFlash 0.5s;
+}
+
+button.blue.flash {
+  animation: blueFlash 0.5s;
+}
+
+button.green.flash {
+  animation: greenFlash 0.5s;
+}
+
+button.yellow.flash {
+  animation: yellowFlash 0.5s;
+}
+
+@keyframes redFlash {
+  0% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.8); filter: brightness(1.5); }
+  100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.3); }
+}
+
+@keyframes blueFlash {
+  0% { box-shadow: 0 0 15px rgba(0, 0, 255, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(0, 0, 255, 0.8); filter: brightness(1.5); }
+  100% { box-shadow: 0 0 15px rgba(0, 0, 255, 0.3); }
+}
+
+@keyframes greenFlash {
+  0% { box-shadow: 0 0 15px rgba(0, 255, 0, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(0, 255, 0, 0.8); filter: brightness(1.5); }
+  100% { box-shadow: 0 0 15px rgba(0, 255, 0, 0.3); }
+}
+
+@keyframes yellowFlash {
+  0% { box-shadow: 0 0 15px rgba(255, 255, 0, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(255, 255, 0, 0.8); filter: brightness(1.5); }
+  100% { box-shadow: 0 0 15px rgba(255, 255, 0, 0.3); }
+}
+
+/* 响应式设计优化 */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2em;
+  }
+  
+  .score-board {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .score-item {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .difficulty-selector {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .difficulty-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .difficulty-btn {
+    width: 140px;
+    padding: 10px 20px;
+    font-size: 0.95em;
+  }
+  
+  .control-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .start-btn, .pause-btn, .reset-btn {
+    width: 150px;
+  }
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.8em;
+  }
+  
+  button.game-button {
+    width: 80px;
+    height: 80px;
+    margin: 8px;
+  }
+  
+  .game-info {
+    padding: 10px 15px;
+    font-size: 0.9em;
+  }
+  
+  .game-container {
+    padding: 15px;
+    width: 95%;
+  }
+  
+  .score-value {
+    font-size: 1.2em;
+  }
+  
+  .celebration {
+    font-size: 1.5em;
+  }
+}
+
+/* 添加更多动画效果 */
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.cosmic-dust {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  animation: rotate 120s linear infinite;
+  z-index: -1;
+}
